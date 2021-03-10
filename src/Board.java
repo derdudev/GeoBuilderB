@@ -40,14 +40,23 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
     // MouseListener
 
-    public void mousePressed(MouseEvent e) { }
+    public void mousePressed(MouseEvent e) {
+        geoObjects.add(new GPoint(e.getX(), e.getY()));
+        if(dragPoint == null) {
+            for (GPoint p : geoObjects) {
+                if (p.distanceTo(e.getX(), e.getY()) < 4) {
+                    this.dragPoint = p;
+                } else {
+                    this.dragPoint = null;
+                }
+            }
+        }
+    }
 
     public void mouseReleased(MouseEvent e) {
-        int mx, my;
-        mx = e.getX();
-        my = e.getY();
-        this.geoObjects.add(new GPoint(mx, my));
+        this.geoObjects.add(new GPoint(e.getX(), e.getY()));
         this.repaint();
+        dragPoint = null;
     }
 
     public void mouseEntered(MouseEvent e) { }
@@ -61,7 +70,13 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
     public void mouseMoved(MouseEvent e) {  }
 
-    public void mouseDragged(MouseEvent e) {  }
+    public void mouseDragged(MouseEvent e) {
+        if(dragPoint != null) {
+            dragPoint.setXY(e.getX(), e.getY());
+            geoObjects.add(dragPoint);
+            repaint();
+        }
+    }
 
     // Anfang Methoden
 

@@ -8,16 +8,16 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class GPoint {
+public class GPoint extends GeoObject{
 
     // start attributes
     private int x;
     private int y;
-    private Color color;
     private final Color DEFAULT_COLOR = Color.BLACK;
     // end attributes
 
     public GPoint(int x, int y) {
+        super();
         this.x = x;
         this.y = y;
         this.color = DEFAULT_COLOR;
@@ -44,6 +44,11 @@ public class GPoint {
         return color;
     }
 
+    public void setXY(int xnew, int ynew){
+        this.setX(xnew);
+        this.setY(ynew);
+    }
+
     public void setColor(Color colorNew) {
         color = colorNew;
     }
@@ -55,6 +60,13 @@ public class GPoint {
     }
 
     public double distanceTo(int mx, int my){
+        double dx, dy, d;
+        dx = (double) mx - this.x;
+        dy = (double) my - this.y;
+        d = Math.sqrt(dx * dx + dy * dy);
+        return d;
+    }
+    public double abstandZu(int mx, int my){
         double dx, dy, d;
         dx = (double) mx - this.x;
         dy = (double) my - this.y;
