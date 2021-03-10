@@ -42,7 +42,13 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
     public void mousePressed(MouseEvent e) { }
 
-    public void mouseReleased(MouseEvent e) { }
+    public void mouseReleased(MouseEvent e) {
+        int mx, my;
+        mx = e.getX();
+        my = e.getY();
+        this.geoObjects.add(new GPoint(mx, my));
+        this.repaint();
+    }
 
     public void mouseEntered(MouseEvent e) { }
 
