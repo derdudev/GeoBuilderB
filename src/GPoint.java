@@ -88,5 +88,15 @@ public class GPoint extends GeoObject{
         this.selected = selected;
     }
 
+    public boolean hasSameXY(GPoint point){
+        return ((x == point.getX()) && (y == point.getY()));
+    }
+
+    public boolean hasSameXY(int x, int y){
+        System.out.println("X: "+this.x+" - Y: "+this.y);
+        System.out.println("cX: "+x+" - cY: "+y);
+        return ((this.x == x) && (this.y == y));
+    }
+
     // end methods
 } // end of GPoint

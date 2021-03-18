@@ -59,7 +59,9 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
             }
         }
         if(dragPoint == null) {
-            this.geoObjects.add(new GPoint(e.getX(), e.getY()));
+            if(!doesPointWithCoordsExist(e.getX(), e.getY())){
+                this.geoObjects.add(new GPoint(e.getX(), e.getY()));
+            }
         } else {
             if((e.getModifiersEx() & e.SHIFT_DOWN_MASK) > 0){
                 if(this.dragPoint.isSelected()){
@@ -74,8 +76,25 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         this.repaint();
     }
 
+    private boolean doesPointExist(GPoint point){
+        for(GeoObject go: geoObjects){
+            if(go instanceof GPoint){
+                if(((GPoint) go).hasSameXY(point)) return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean doesPointWithCoordsExist(int x, int y){
+        for(GeoObject go: geoObjects){
+            if(go instanceof GPoint){
+                if(((GPoint) go).hasSameXY(x, y)) return true;
+            }
+        }
+        return false;
+    }
+
     public void mouseReleased(MouseEvent e) {
-        //if(dragPoint != null) this.dragPoint.setSelected(false);
         dragPoint = null;
     }
 
@@ -93,7 +112,6 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     public void mouseDragged(MouseEvent e) {
         if(dragPoint != null) {
             dragPoint.setXY(e.getX(), e.getY());
-            geoObjects.add(dragPoint);
             repaint();
         }
     }
@@ -103,15 +121,26 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     public int getSelPtsCount() {
         return 0;
     }
-    public void addNewCircle() {  }
+    public void addNewCircle() {
+        if(this.selectedPoints.size() == 2){
+            this.geoObjects.add(new GCircle(this.selectedPoints.get(0), this.selectedPoints.get(1)));
+            resetSelectedPoints();
+            repaint();
+        }
+    }
 
-    public void addNewRect() {  }
+    public void addNewRect() {
+        if(this.selectedPoints.size() == 2){
+            this.geoObjects.add(new GRectangle(this.selectedPoints.get(0), this.selectedPoints.get(1)));
+            resetSelectedPoints();
+            repaint();
+        }
+    }
 
     public void addNewLine() {
-        if(this.selectedPoints.size() <= 2){
+        if(this.selectedPoints.size() == 2){
             this.geoObjects.add(new GLine(this.selectedPoints.get(0), this.selectedPoints.get(1)));
             resetSelectedPoints();
-            this.selectedPoints.clear();
             repaint();
         }
     }
@@ -120,6 +149,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         for(GeoObject go: geoObjects){
             if(go instanceof GPoint){
                 ((GPoint) go).setSelected(false);
+                this.selectedPoints.clear();
             }
         }
     }

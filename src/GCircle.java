@@ -7,10 +7,10 @@ public class GCircle extends GLine{
 
     @Override
     protected void draw(Graphics gr) {
-
+        gr.drawOval(point1.getX()-getRadius(), point1.getY()-getRadius(), getRadius()*2, getRadius()*2);
     }
 
     private int getRadius(){
-        return 1;
+        return (int) point1.distanceTo(point2.getX(), point2.getY());
     }
 }
