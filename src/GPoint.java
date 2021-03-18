@@ -14,6 +14,7 @@ public class GPoint extends GeoObject{
     private int x;
     private int y;
     private final Color DEFAULT_COLOR = Color.BLACK;
+    private boolean selected;
     // end attributes
 
     public GPoint(int x, int y) {
@@ -21,6 +22,7 @@ public class GPoint extends GeoObject{
         this.x = x;
         this.y = y;
         this.color = DEFAULT_COLOR;
+        this.selected = false;
     }
 
     // start methods
@@ -56,7 +58,11 @@ public class GPoint extends GeoObject{
     public void draw(Graphics gr) {
         // TODO add your code here
         gr.setColor(this.getColor());
-        gr.drawRect(x-2,y-2,5,5);
+        if(!this.selected){
+            gr.drawRect(x-2,y-2,5,5);
+        } else {
+            gr.fillRect(x-2,y-2,5,5);
+        }
     }
 
     public double distanceTo(int mx, int my){
@@ -72,6 +78,14 @@ public class GPoint extends GeoObject{
         dy = (double) my - this.y;
         d = Math.sqrt(dx * dx + dy * dy);
         return d;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     // end methods

@@ -5,6 +5,8 @@ public abstract class GeoObject {
 
     public GeoObject(){
         super();
-
+        this.color = new Color(0, 0, 0);
     }
+
+    protected abstract void draw(Graphics gr);
 }

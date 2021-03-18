@@ -62,7 +62,7 @@ public class GeoObjGUI extends JFrame {
             }
         });
         cp.add(jBRect);
-        jBLine.setBounds(376, 88, 99, 25);
+        jBLine.setBounds(552, 24, 99, 25);
         jBLine.setText("Strecke");
         jBLine.setMargin(new Insets(2, 2, 2, 2));
         jBLine.addActionListener(new ActionListener() {
