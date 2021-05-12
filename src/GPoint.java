@@ -59,7 +59,7 @@ public class GPoint extends GeoObject{
         // TODO add your code here
         gr.setColor(this.getColor());
         if(!this.selected){
-            gr.drawRect(x-2,y-2,5,5);
+            gr.drawRect(x-2,y-2,1,1);
         } else {
             gr.fillRect(x-2,y-2,5,5);
         }
@@ -93,8 +93,6 @@ public class GPoint extends GeoObject{
     }
 
     public boolean hasSameXY(int x, int y){
-        System.out.println("X: "+this.x+" - Y: "+this.y);
-        System.out.println("cX: "+x+" - cY: "+y);
         return ((this.x == x) && (this.y == y));
     }
 

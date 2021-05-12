@@ -28,26 +28,24 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         super();
         addMouseListener(this);
         addMouseMotionListener(this);
+        drawSinWave();
+    }
 
-        GeoObject p = new GPoint(150, 100);
-        geoObjects.add(p);
-        p = new GPoint(130, 110);
-        geoObjects.add(p);
-        p = new GPoint(110, 120);
-        geoObjects.add(p);
-        p = new GPoint( 90, 130);
-        geoObjects.add(p);
-        p = new GLine((GPoint) geoObjects.get(0), (GPoint) geoObjects.get(1));
-        geoObjects.add(p);
-        this.repaint();
-        // System.out.println(geoObjects.get(0));
-        // System.out.println(System.getProperty("user.dir"));
+    public void drawSinWave(){
+        double x, y;
+        int width = 550;
+        for(double i=0; i<width; i=i+0.01){
+            x = i;
+            y = (int) (Math.round((Math.sin(x*0.1) * 40)) * (-1)) + 200;
+            GPoint point = new GPoint((int) Math.round(x), (int) Math.round(y));
+            geoObjects.add(point);
+        }
+        repaint();
     }
 
     // MouseListener
 
     public void mousePressed(MouseEvent e) {
-        System.out.println(geoObjects.size());
         dragPoint = null;
         for (GeoObject go : geoObjects) {
             if(go instanceof GPoint){
@@ -154,7 +152,21 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         }
     }
 
-    public void addNewPolygon() {  }
+    public void addNewPolygon() {
+        if(this.selectedPoints.size() >= 3){
+            this.geoObjects.add(new GPolygon(this.selectedPoints));
+            resetSelectedPoints();
+            repaint();
+        }
+    }
+
+    public void addNewAngle(){
+        if(this.selectedPoints.size() == 3){
+            this.geoObjects.add(new GAngle(this.selectedPoints.get(0), this.selectedPoints.get(1), this.selectedPoints.get(2)));
+            resetSelectedPoints();
+            repaint();
+        }
+    }
 
     public void setObjColor(Color newCol) {  }
 
@@ -165,8 +177,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         BasicStroke stroke2 = new BasicStroke(2.0f, BasicStroke.CAP_BUTT,
                 BasicStroke.JOIN_MITER);
         ((Graphics2D) g).setStroke(stroke2);
-        for (GeoObject p : geoObjects ) {
-            p.draw(g);
+        for (GeoObject go : geoObjects ) {
+            go.draw(g);
         } // end of for
     }
     // Ende Methoden

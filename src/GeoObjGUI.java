@@ -19,15 +19,18 @@ public class GeoObjGUI extends JFrame {
     private JButton jBRect = new JButton();
     private JButton jBLine = new JButton();
     private JButton jBPolygone = new JButton();
+    private JButton jBAngle = new JButton();
     private JButton jBDelete = new JButton();
     private JButton jBColour = new JButton();
     // Ende Attribute
+
+    private final int BUTTON_WIDTH = 120;
 
     public GeoObjGUI(String title) {
         // Frame-Initialisierung
         super(title);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        int frameWidth = 672;
+        int frameWidth = 693;
         int frameHeight = 455;
         setSize(frameWidth, frameHeight);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -42,10 +45,11 @@ public class GeoObjGUI extends JFrame {
         board1.setBounds(8, 0, 537, 425);
         board1.setBackground(Color.WHITE);
         cp.add(board1);
-        jBCircle.setBounds(552, 64, 99, 25);
+        jBCircle.setBounds(552, 64, BUTTON_WIDTH, 25);
         jBCircle.setText("Kreis");
         jBCircle.setBackground(Color.WHITE);
         jBCircle.setFont(new Font("Roboto Mono", Font.PLAIN, 12));
+        jBCircle.setFocusPainted(false);
         jBCircle.setMargin(new Insets(2, 2, 2, 2));
         jBCircle.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -53,8 +57,11 @@ public class GeoObjGUI extends JFrame {
             }
         });
         cp.add(jBCircle);
-        jBRect.setBounds(552, 104, 99, 25);
+        jBRect.setBounds(552, 104, BUTTON_WIDTH, 25);
         jBRect.setText("Rechteck");
+        jBRect.setBackground(Color.WHITE);
+        jBRect.setFont(new Font("Roboto Mono", Font.PLAIN, 12));
+        jBRect.setFocusPainted(false);
         jBRect.setMargin(new Insets(2, 2, 2, 2));
         jBRect.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -62,8 +69,11 @@ public class GeoObjGUI extends JFrame {
             }
         });
         cp.add(jBRect);
-        jBLine.setBounds(552, 24, 99, 25);
+        jBLine.setBounds(552, 24, BUTTON_WIDTH, 25);
         jBLine.setText("Strecke");
+        jBLine.setBackground(Color.WHITE);
+        jBLine.setFont(new Font("Roboto Mono", Font.PLAIN, 12));
+        jBLine.setFocusPainted(false);
         jBLine.setMargin(new Insets(2, 2, 2, 2));
         jBLine.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -71,8 +81,11 @@ public class GeoObjGUI extends JFrame {
             }
         });
         cp.add(jBLine);
-        jBPolygone.setBounds(552, 144, 99, 25);
+        jBPolygone.setBounds(552, 144, BUTTON_WIDTH, 25);
         jBPolygone.setText("Polygon");
+        jBPolygone.setBackground(Color.WHITE);
+        jBPolygone.setFont(new Font("Roboto Mono", Font.PLAIN, 12));
+        jBPolygone.setFocusPainted(false);
         jBPolygone.setMargin(new Insets(2, 2, 2, 2));
         jBPolygone.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -80,8 +93,23 @@ public class GeoObjGUI extends JFrame {
             }
         });
         cp.add(jBPolygone);
-        jBDelete.setBounds(553, 293, 96, 34);
+        jBAngle.setBounds(552, 184, BUTTON_WIDTH, 25);
+        jBAngle.setText("Angle");
+        jBAngle.setBackground(Color.WHITE);
+        jBAngle.setFont(new Font("Roboto Mono", Font.PLAIN, 12));
+        jBAngle.setFocusPainted(false);
+        jBAngle.setMargin(new Insets(2, 2, 2, 2));
+        jBAngle.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                jBAngle_ActionPerformed(evt);
+            }
+        });
+        cp.add(jBAngle);
+        jBDelete.setBounds(553, 293, BUTTON_WIDTH, 34);
         jBDelete.setText("Objekt löschen");
+        jBDelete.setBackground(Color.WHITE);
+        jBDelete.setFont(new Font("Roboto Mono", Font.PLAIN, 12));
+        jBDelete.setFocusPainted(false);
         jBDelete.setMargin(new Insets(2, 2, 2, 2));
         jBDelete.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -90,8 +118,11 @@ public class GeoObjGUI extends JFrame {
         });
         jBDelete.setFont(new Font("Dialog", Font.BOLD, 12));
         cp.add(jBDelete);
-        jBColour.setBounds(552, 248, 97, 33);
+        jBColour.setBounds(552, 248, BUTTON_WIDTH, 33);
         jBColour.setText("Objekt färben");
+        jBColour.setBackground(Color.WHITE);
+        jBColour.setFont(new Font("Roboto Mono", Font.PLAIN, 12));
+        jBColour.setFocusPainted(false);
         jBColour.setMargin(new Insets(2, 2, 2, 2));
         jBColour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -134,7 +165,9 @@ public class GeoObjGUI extends JFrame {
         } // end of if
     } // end of jBColour_ActionPerformed
 
-
+    public void jBAngle_ActionPerformed(ActionEvent evt){
+        board1.addNewAngle();
+    }
     // Ende Methoden
 
     public static void main(String[] args) {
